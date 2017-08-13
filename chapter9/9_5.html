@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+   <style type="text/css">
+	@keyframes generateJump {
+	20%{transform: translateY(0);}
+	40%{transform: translateY(-30px);}
+	50%{transform: translateY(0);}
+	60%{transform: translateY(-15px);}
+	80%{transform: translateY(0);}
+	}
+	.kangaroo {
+	animation: generateJump 1.5s ease 0s 2 normal;
+	}
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+	<div id="app"></div> 
+    <script>
+	const Greeter = {
+	template: '<p>Hello World</p>'
+	}
+	new Vue({
+		el: '#app',
+		render: h => h(
+			'div',
+			[
+				h('h1', 'The plumber club page'),
+				h(
+				{
+					render: function (h) {
+						const self = this
+						return h('div', [
+							'Your name is ',
+							h('input', {
+								domProps: {
+									value: self.name
+								},
+							on: {
+								input (event) {
+									self.name = event.target.value
+								}
+							}
+							}),
+							h(
+								'p',
+								'Hello ' + self.name +
+									(self.exclamation ? '!' : ''))
+						])
+					},
+					data () { return { name: '' } },
+					props: ['exclamation']
+				},
+				{
+					props: {
+						exclamation: true
+					}
+				}
+			),
+				'Here you will find ', h('i', 'a flood '), 'of plumbers.'
+			]
+		)
+	})
+	</script>
+</body>
+</html>

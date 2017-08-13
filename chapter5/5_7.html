@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+   <style type="text/css">
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+        <h3>Who's better: Socrates or Plato?</h3>
+        <p>Technically, without Plato we wouldn't have<br>
+        much to go on when it comes to information about<br>
+        Socrates. Plato ftw!</p>
+        <form>
+        <label>Write your comment:</label>
+        <textarea v-model="message"></textarea>
+        <button @click.prevent="submit">Send!</button>
+        </form>
+        <p>Server got: {{response}}</p>
+    </div>
+    
+    <script>
+		new Vue({
+			el: '#app',
+			methods: {
+				submit () {
+					axios.post('http://jsonplaceholder.typicode.com/comments',
+				{
+				body: this.message
+					}).then(response => {
+					this.response = response.data
+				})
+				}
+			},
+			data: {
+				message: '',
+				response: '...'
+			},
+			mounted () {
+				axios.interceptors.request.use(config => {
+					const body = config.data.body.replace(/punk/i, '***')
+					config.data.body = body
+				return config
+			})
+			}
+			
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/magic/1.1.0/magic.css">
+    <style type="text/css">
+		.frame {
+			border: 5px dashed dodgerblue;
+			width: 300px;
+		}
+		h3 {
+			font-family: sans-serif;
+			text-align: center;
+			padding: 2px 0;
+			width: 100%;
+		}
+		h3, figcaption {
+			font-family: sans-serif;
+			text-align: center;
+			padding: 2px 0;
+			width: 100%;
+		}
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+        <framed>
+        	<cat :name="catName"></cat>
+        </framed>
+    </div>
+    <script>
+		Vue.component('framed', {
+			template: `<div class="frame">
+				<h3>Russian cat mafia
+					employee of the month</h3>
+				<slot>Nothing framed.</slot>
+			</div>`
+		})
+		Vue.component('cat', {template: `<div>
+			<figure>
+				<img src="http://lorempixel.com/220/220/cats/"/>
+				<figcaption>{{name}}</figcaption>
+			</figure>
+			</div>`,
+			props: ['name']
+		})
+		new Vue({
+			el: '#app',
+			data: {
+				names: ['Murzik', 'Pushok', 'Barsik', 'Vaska', 'Matroskin']
+			},
+			computed: {
+				catName () {
+					return this.names[Math.floor(Math.random() *
+					this.names.length)]
+				}
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/magic/1.1.0/magic.css">
+    <style type="text/css">
+		.fade-enter-active, .fade-leave-active {
+			transition: opacity .5s
+		}
+		.fade-enter, .fade-leave-active {
+			opacity: 0
+		}
+		.zoom-leave-active, .zoom-enter-active {
+			transition: transform .5s;
+		} 
+		.zoom-leave-active, .zoom-enter {
+			transform: scale(0)
+		}
+		p {
+			margin: 0;
+			position: absolute;
+			font-size: 3em;
+		}
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+    <button @click="kisses++"> Kiss!</button>
+        <transition :name="kindOfTransformation" :mode="transformationMode">
+        	<p :key="transformation">{{emoji}}{{transformation}}</p>
+        </transition>
+    </div>
+    <script>
+		new Vue({
+			el: '#app',
+			data: {
+				kisses: 0,
+				kindOfTransformation: 'fade',
+				transformationMode: 'in-out'
+			},
+			computed: {
+				transformation () {
+				if (this.kisses < 3) {return 'frog'} 
+				if (this.kisses >= 3 && this.kisses <= 5) {
+					this.transformationMode = 'out-in'
+					return 'princess'
+				} 
+				if (this.kisses > 5) {
+					this.kindOfTransformation = 'zoom'
+					return 'santa'
+				}
+				},
+				emoji () {
+					switch (this.transformation) {
+						case 'frog': return '青蛙turn  '
+						case 'princess': return '王子'
+						case 'santa': return '圣诞老人'
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>

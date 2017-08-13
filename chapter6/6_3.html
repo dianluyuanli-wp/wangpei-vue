@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+   <style type="text/css">
+   a.router-link-active, li.router-link-active>a {background-color: gainsboro;
+	}
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+        <h1>Online Restaurant</h1>
+        <ul>
+        	<li>
+       	 		<router-link :to="{ name: 'home' }" exact>
+        			Home
+       		</router-link>
+        </li>
+        	<li v-for="i in 10">
+        		<router-link :to="{ name: 'menu', params: { id: i } }">
+        			Menu {{i}}
+        		</router-link>
+        	</li>
+        </ul>
+        <router-view class="view"></router-view>
+    </div>
+    
+    <script>
+		const Home = { template: `
+			<div>
+				Welcome to Online Restaurant
+			</div>
+		` }
+		const Menu = { template: `
+			<div>
+				You just ordered
+			<img :src="'http://lorempixel.com/200/200/food/' + $route.params.id"></div>
+		` }
+		const router = new VueRouter({
+			routes: [
+				{ path: '/', name:'home', component: Home },
+				{ path: '/menu/:id', name: 'menu', component: Menu },
+			]
+		})
+		new Vue({
+			router,
+			el: '#app'
+		})
+	</script>
+</body>
+</html>

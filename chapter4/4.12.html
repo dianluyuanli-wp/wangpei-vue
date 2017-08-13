@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+<!--<!--    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/magic/1.1.0/magic.css">
+ -->    <style type="text/css">
+	span {
+		cursor: pointer;
+	}
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+        <dialog-box
+        	command="confirmation"
+        	:cancellable="true"
+        	@cancel="msg = 'cancelled'"
+        	@ok="msg = 'confirmed'">
+        	<span slot="icon">warning!!!</span>
+        	<span slot="message">Do you confirm?</span>
+        </dialog-box>
+        <p>Output: {{msg}}</p>
+    </div>
+    <script>
+		Vue.component('dialog-box', {
+		template: `
+			<div>
+				<div class="icon">
+					<slot name="icon"></slot>
+				</div>
+				<slot name="message"></slot>
+				<div class="buttons">
+					<button v-if="cancellable"
+						@click="cancel()">
+						Cancel
+					</button>
+					<button @click="ok()">
+						OK
+					</button>
+				</div>
+			</div>`,
+			props: {
+				command: String,
+				cancellable: Boolean
+			},
+			methods: {
+				cancel () {this.$emit('cancel', this.command)
+				},
+				ok () {
+					this.$emit('ok', this.command)
+				}
+			}
+		}),
+		new Vue({
+			el: '#app',
+			data: {
+				msg: 'undefined'
+			}
+		})
+	</script>
+</body>
+</html>

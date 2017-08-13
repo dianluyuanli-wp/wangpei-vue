@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+   <style type="text/css">
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+    	<p v-pony>I'm a pony paragraph!</p>
+    	<code v-pony>Pony code</code>
+    	<blockquote>Normal quote</blockquote>
+    	<blockquote v-pony>I'm a pony quote</blockquote>
+    </div>
+    
+    <script>
+	Vue.directive('pony', {
+		bind (el) {
+		el.style.backgroundColor = 'hotpink'
+		el.onclick = () => {
+		const colGen = () =>
+		Math.round(Math.random()*255 + 25)
+		const cols =
+		[colGen() + 100, colGen(), colGen()]
+		const randRGB =
+		`rgb(${cols[0]}, ${cols[1]}, ${cols[2]})`
+		el.style.backgroundColor = randRGB
+		}
+	  }
+	}),
+    new Vue({
+	el: '#app'
+	})
+	</script>
+</body>
+</html>

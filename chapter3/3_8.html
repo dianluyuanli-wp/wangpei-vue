@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <script src="js/Tween.js"></script>
+    <style type="text/css">
+		.ball {
+			width: 3em;
+			height: 3em;
+			background-color: red;
+			border-radius: 50%;
+			position: absolute;
+			left: 10em;
+		}
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+        <input type="number" @input="move">
+        <div class="ball" :style="'top: ' + height + 'em'"></div>
+    </div>
+    <script>
+		new Vue({
+			el: '#app',
+			data: {
+				height: 0
+			},
+			methods: {
+			move (event) {
+				const newHeight = Number(event.target.value)
+				const _this = this
+				const animate = (time) => {
+					requestAnimationFrame(animate)
+					TWEEN.update(time)
+				}
+				new TWEEN.Tween({ H: this.height })
+				.easing(TWEEN.Easing.Bounce.Out)
+				.to({ H: newHeight }, 1000)
+				.onUpdate(function () {
+					_this.height = this.H
+				})
+				.start()
+				animate()
+				}
+			}
+		})
+	</script>
+</body>
+</html>

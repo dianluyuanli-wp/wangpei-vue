@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/magic/1.1.0/magic.css">
+    <style type="text/css">
+		.course {
+			border: 1px solid black;
+			margin: 10px;
+			padding: 10px;
+		}
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+        <course :menu="menu1"></course>
+        <course :menu="menu2"></course>
+    </div>
+    <script>
+		Vue.component('dish', {
+			template: `
+			<p class="dish">
+				{{ham}} &lt;- Delicious!
+			</p>
+			`,
+			props: ['ham']
+		})
+		Vue.component('course', {
+			template: `
+				<section class="course">
+					<dish v-for="ham in menu" :ham="ham" :key="ham"></dish>
+				</section>
+			`,
+			props: {
+				menu: {
+					type: Array,
+					required: true,
+					validator (foodArray) {
+						return foodArray.every(food =>
+							typeof food === 'string') &&
+							foodArray.length === 4
+					}
+				}
+			}
+		})
+		new Vue({
+			el: '#app',
+			data: {
+				menu1: ['苹果','草莓 ','香蕉','柠檬'],
+				menu2: ['西瓜','小明','大盘鸡','大鸡鸡']
+			}
+		})
+	</script>
+</body>
+</html>

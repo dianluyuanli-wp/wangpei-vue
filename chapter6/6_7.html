@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+   <style type="text/css">
+   .v-enter-active, .v-leave-active {
+	transition: opacity .5s;
+	}
+	.v-enter, .v-leave-active {
+	opacity: 0
+	}
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+        <h1>Ghost's Restaurant</h1>
+        <ul>
+        	<li><router-link to="/">Home</router-link></li>
+        	<li><router-link to="/menu">Menu</router-link></li>
+        </ul>
+        <transition mode="out-in">
+        <router-view></router-view>
+        </transition>
+    </div>
+    
+    <script>
+	Vue.use(VueRouter)
+		const Home = { template: '<div>Welcome to Ghost‘s</div>' }
+		const Menu = { template: '<div>Today: invisible cookies</div>' }
+		const router = new VueRouter({
+		routes: [
+			{ path: '/', component: Home },
+			{ path: '/menu', component: Menu }
+			]
+		})
+		new Vue({
+			router,
+			el: '#app',
+
+		})
+	</script>
+</body>
+</html>

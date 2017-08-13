@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semanticui/2.2.7/semantic.css" />
+	<meta name="viewport" content="width=device-width">
+   <style type="text/css">
+
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+    	<h1>Breeds</h1>
+    	<breed-table :breeds="breeds"></breed-table>
+    </div>
+    
+    <script>
+	const MobileTable = {
+		template: `
+			<table class="ui celled table unstackable">
+				<thead>
+					<tr>
+						<th>Breed</th>
+						<th>Affection & Shedding</th>
+					</tr>
+				</thead>
+		<tbody>
+			<tr v-for="breed in breeds">
+				<td>{{breed.name}}
+					<div
+						class="ui mini circular image"
+						:style="'height:35px;background-color:'+breed.colour"
+					></div>
+				</td>
+				<td>
+					<div class="ui heart rating">
+						<i
+							v-for="n in 5"
+							class="icon"
+							:class="{ active: n <= breed.affection }"
+						></i>
+					</div>
+					<div class="ui star rating">
+						<i
+							v-for="n in 5"
+							class="icon"
+							:class="{ active: n <= breed.shedding }"
+						></i>
+					</div>
+				</td>
+			</tr>
+	</tbody>
+</table>`}
+	const DesktopTable = {
+		template: `
+			<table class="ui celled table unstackable">
+				<thead>
+					<tr>
+						<th>Breed</th>
+						<th>Coat Colour</th>
+						<th>Level of Affection</th>
+						<th>Level of Shedding</th>
+					</tr>
+				</thead>
+			<tbody>
+				<tr v-for="breed in breeds">
+					<td>{{breed.name}}</td>
+					<td>{{breed.colour}}</td>
+					<td>{{breed.affection}}</td>
+					<td>{{breed.shedding}}</td>
+				</tr>
+			</tbody>
+		</table>
+		`,
+		props: ['breeds']
+	}
+	const BreedTable = {
+		functional: true,
+		render(h, context) {
+			if (context.parent.width > 400) {
+				return h(DesktopTable, context.data, context.children)
+			} else {
+				return h(MobileTable, context.data, context.children)
+			}
+		}
+	}
+	new Vue({
+	el: '#app',
+	data: {
+		width: document.body.clientWidth,
+	breeds: [
+		{ name: 'Persian', colour: 'orange', affection: 3, shedding: 5 },
+		{ name: 'Siberian', colour: 'blue', affection: 5, shedding: 4 },
+		{ name: 'Bombay', colour: 'black', affection: 4, shedding: 2 }
+	]
+	},
+	created() {
+		window.onresize = event => {
+			this.width = document.body.clientWidth
+		}
+	},
+	components: {
+		BreedTable
+	}
+	})
+	</script>
+</body>
+</html>

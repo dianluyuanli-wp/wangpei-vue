@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.5.2/jasmine.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.5.2/jasmine.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.5.2/jasmine-html.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.5.2/boot.js"></script>
+   <style type="text/css">
+	div.toast {
+		width: 15em;
+		height: 1em;
+		position: fixed;
+		bottom: 1em;
+		background-color: red;
+		color: white;
+		padding: 1em;
+		text-align: center;
+	}
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+    	<p>{{greeting}}</p>
+    </div>
+    
+    <script>
+
+	new Vue({
+	el: '#app',
+	data: {
+		greeting: 'Hello World!'
+	}
+	})
+	
+	describe('my app', () => {
+	it('should say Hello World', () => {
+		expect(document.querySelector('p').innerText)
+		.toContain('Hello World')
+	})
+	})
+	</script>
+</body>
+</html>

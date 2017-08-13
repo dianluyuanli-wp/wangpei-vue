@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+   <style type="text/css">
+   a.router-link-active, li.router-link-active>a {background-color: gainsboro;
+	}
+	</style>
+<title>无标题文档</title>
+</head>
+
+<body>  
+    <div id="app">
+    	<h1>Second-Hand Hardware</h1>
+    	<router-view name="list"></router-view>
+    	<router-view></router-view>
+    </div>
+    
+    <script>
+		const List = { template: `
+		<div>
+			<h2>Shopping List</h2>
+			<ul>
+				<li>Computer</li>
+			</ul>
+		</div>
+		` }
+		const ComputerDetail = { template: `
+		<div>
+			<h2>Computer Detail</h2>
+			<p>Pentium 120Mhz, CDs sold separately</p>
+		</div>
+		` }
+		const Parts = { template: `
+		<div>
+			<h2>Computer Parts</h2>
+			<ul>
+				<li><router-link to="/computer">Computer</router-link></li>
+				<li>CD-ROM</li>
+			</ul>
+		</div>
+		` }
+		const router = new VueRouter({
+			routes: [
+				{ path: '/',
+					components: {
+					default: Parts,
+					list: List
+				}
+			},
+				{ path: '/computer',
+					components: {
+					default: ComputerDetail,
+					list: List
+				}
+			}]
+		})
+		new Vue({
+			router,
+			el: '#app'
+		})
+	</script>
+</body>
+</html>
